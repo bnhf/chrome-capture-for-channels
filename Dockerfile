@@ -12,7 +12,7 @@ RUN apt-get update \
 
 WORKDIR /home/chrome
 RUN groupadd -r chrome && useradd -r -g chrome -G audio,video chrome
-COPY main.js package.json yarn.lock /home/chrome
+COPY main.js package.json yarn.lock /home/chrome/
 RUN chown -R chrome:chrome /home/chrome
 USER chrome
 
