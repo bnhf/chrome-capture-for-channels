@@ -581,6 +581,52 @@ async function main() {
       }
     }
 
+    // Handle Spectrum
+    else if (u.includes("watch.spectrum.net")) {
+      console.log("URL contains watch.spectrum.net");
+      try {
+        
+        // Wait for the page to settle before requesting fullscreen
+        await delay(1030);
+
+        // Use Fullscreen API to enter fullscreen mode
+        await page.evaluate(() => {
+          const el = document.documentElement;
+          el.requestFullscreen?.() ||
+          el.mozRequestFullScreen?.() ||
+          el.webkitRequestFullscreen?.() ||
+          el.msRequestFullscreen?.();
+        });
+
+        console.log("Set Spectrum to Full Screen");
+        
+      } catch (e) {
+        // Handle any errors specific to watch.spectrum.net
+        console.log('Error for watch.spectrum.net:', e);
+      }
+    }
+
+    // Handle Peacock
+    else if (u.includes("peacock")) {
+      console.log("URL contains peacock");
+      try {
+        // Press 'F' to toggle fullscreen mode
+        await page.keyboard.press('KeyF');
+
+        // Optional: simulate pressing right arrow 10x to raise volume (if applicable)
+        for (let i = 0; i < 10; i++) {
+          await delay(200);
+          await page.keyboard.press('ArrowRight');
+        }
+
+        console.log("Set Peacock to Full Screen and Volume to max");
+
+      } catch (e) {
+        // Handle any errors specific to Peacock
+        console.log('Error for peacock:', e);
+      }
+    }
+
     // Handle DirecTV Stream
     else if (u.includes("stream.directv.com")) {
       console.log("URL contains stream.directv.com");
